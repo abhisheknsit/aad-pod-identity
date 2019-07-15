@@ -78,10 +78,10 @@ func (s *Server) updateIPTableRules() {
 	for range time.Tick(time.Second * time.Duration(s.IPTableUpdateTimeIntervalInSeconds)) {
 		log.Infof("node(%s) hostip(%s) metadataaddress(%s:%s) nmiport(%s)", s.NodeName, s.HostIP, s.MetadataIP, s.MetadataPort, s.NMIPort)
 		if err := iptables.AddCustomChain(s.MetadataIP, s.MetadataPort, s.HostIP, s.NMIPort); err != nil {
-			log.Fatalf("%s", err)
+			log.Errorf("%s", err)
 		}
 		if err := iptables.LogCustomChain(); err != nil {
-			log.Fatalf("%s", err)
+			log.Errorf("%s", err)
 		}
 	}
 }
